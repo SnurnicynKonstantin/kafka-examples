@@ -1,0 +1,24 @@
+kafka-topics --zookeeper 127.0.0.1:2181 --topic first_topic --create --partitions 3 --replication-factor 1 - Создать топик
+kafka-topics --zookeeper 127.0.0.1:2181 --list                                                             - Список топиков
+kafka-topics --zookeeper 127.0.0.1:2181 --topic first_topic --describe                                     - Описание топика
+kafka-topics --zookeeper 127.0.0.1:2181 --topic first_topic --delete                                       - Удалить 
+
+kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic                               - Отправить сообщение в топик
+kafka-console-producer --broker-list 127.0.0.1:9092 --topic first_topic --producer-property acks=all  - Отправить сообщение в топик с свойством
+
+kafka-console-consumer --broker-list 127.0.0.1:9092 --topic first_topic                              - Прослушивать топик
+kafka-console-consumer --broker-list 127.0.0.1:9092 --topic first_topic --from-beginning             - Прослушивать топик с начала
+kafka-console-consumer --broker-list 127.0.0.1:9092 --topic first_topic --group my-first-application - Прослушивать по группе
+
+kafka-consumer-groups --bootstrap-server localhost:9092 --list                                                                            - Список груп
+kafka-consumer-groups --bootstrap-server localhost:9092 --describe --group my-first-group                                                 - Получить описание о группе
+kafka-consumer-groups --bootstrap-server localhost:9092 --group my-first-group --reset-offset --shift-by -2 --execute --topic first_topic - Обнулить счетчик сообщений на -2 в каждом partition.
+kafka-consumer-groups --bootstrap-server localhost:9092 --group my-first-group --reset-offset --to-earliest --execute --topic first_topic - Обнулить счетчик сообщений до нуля.
+
+
+-------------------------------------
+Команды для Docker:
+
+docker exec -t kafkaexamples_kafka_1 /bin/kafka-topics --bootstrap-server :29092 --create --topic t1 --partitions 3 --replication-factor 1
+docker exec -t kafkaexamples_kafka_1 /bin/kafka-topics --bootstrap-server :29092 --list
+
